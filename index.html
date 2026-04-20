@@ -134,7 +134,8 @@
   .fr{width:240px;height:148px;flex-shrink:0;border:1px solid var(--line);background:var(--bg);
     margin:0 2px;position:relative;overflow:hidden;}
   /* all frames are image frames now */
-  .fr .img-slot{width:100%;height:100%;border:none;}
+  .fr .img-slot{
+    pointer-events: none;width:100%;height:100%;border:none;}
   .fr .img-slot img{filter:brightness(.75) saturate(.8);}
   /* label floats over image */
   .fr-label{
@@ -184,7 +185,7 @@
     border-bottom:1px solid var(--line);
   }
   .sk-img-slot .img-slot{ width:100%;height:100%;border:none;border-bottom:none; }
-  .sk-img-slot .img-slot-hint-label{ font-size:.52rem; }
+  .sk-img-slot
 
   /* MARQUEE */
   .mq{overflow:hidden;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -254,11 +255,8 @@
     overflow: hidden;
     background: var(--bg2);
     border: 1px dashed rgba(126,184,212,0.25);
-    cursor: pointer;
     transition: border-color .3s, background .3s;
   }
-  .img-slot:hover { border-color: var(--accent); background: var(--bg3); }
-  .img-slot input[type=file] { position:absolute;inset:0;opacity:0;cursor:pointer;z-index:10;width:100%;height:100% }
   .img-slot img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;display:none }
   .img-slot img.loaded { display:block }
   .img-slot-overlay {
@@ -268,22 +266,7 @@
     opacity:0; transition: opacity .3s;
   }
   .img-slot.has-img .img-slot-overlay { opacity:1 }
-  .img-slot-hint {
-    position:absolute;inset:0;z-index:4;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-    pointer-events:none;
-    transition: opacity .3s;
-  }
-  .img-slot.has-img .img-slot-hint { opacity:0 }
-  .img-slot-hint-icon {
-    width:36px;height:36px;border:1px solid rgba(126,184,212,.35);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-size:1rem;color:var(--accent);opacity:.7;
-  }
-  .img-slot-hint-label {
-    font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
-    color:var(--accent);opacity:.55;text-align:center;line-height:1.6;
-  }
+  .img-slot.has-img
   .img-slot-tag {
     position:absolute;top:12px;left:12px;z-index:5;
     font-family:'Bebas Neue';font-size:.7rem;letter-spacing:.3em;
@@ -291,8 +274,6 @@
     background:rgba(20,25,31,.6);padding:3px 8px;
   }
   /* change hint on hover when no image */
-  .img-slot:not(.has-img):hover .img-slot-hint-icon { opacity:1; border-color: var(--accent); }
-  .img-slot:not(.has-img):hover .img-slot-hint-label { opacity:.9; }
 
   /* Hero portrait slot */
   .hero-portrait {
@@ -402,14 +383,9 @@
   <!-- ① HERO PORTRAIT — ảnh chân dung hoặc ảnh on-set -->
   <div class="hero-portrait">
     <div class="img-slot" id="slot-hero">
-      <input type="file" accept="image/*" onchange="loadImg(this,'slot-hero')">
       <img id="img-slot-hero" alt="">
       <div class="img-slot-overlay"></div>
       <div class="img-slot-tag">① HERO</div>
-      <div class="img-slot-hint">
-        <div class="img-slot-hint-icon">+</div>
-        <div class="img-slot-hint-label">Chân dung<br>hoặc On-set</div>
-      </div>
     </div>
   </div>
   <h1 class="hero-name">Long<br><em>Lê.</em></h1>
@@ -438,33 +414,25 @@
     <div class="frames-r">
       <div class="fr">
         <div class="img-slot" id="slot-strip1">
-          <input type="file" accept="image/*" onchange="loadImg(this,'slot-strip1')">
           <img id="img-slot-strip1" alt="">
-          <div class="img-slot-hint"><div class="img-slot-hint-icon">+</div><div class="img-slot-hint-label">Ảnh dự án</div></div>
         </div>
         <span class="fr-label">TVC</span>
       </div>
       <div class="fr">
         <div class="img-slot" id="slot-strip2">
-          <input type="file" accept="image/*" onchange="loadImg(this,'slot-strip2')">
           <img id="img-slot-strip2" alt="">
-          <div class="img-slot-hint"><div class="img-slot-hint-icon">+</div><div class="img-slot-hint-label">Ảnh dự án</div></div>
         </div>
         <span class="fr-label">MV</span>
       </div>
       <div class="fr">
         <div class="img-slot" id="slot-strip3">
-          <input type="file" accept="image/*" onchange="loadImg(this,'slot-strip3')">
           <img id="img-slot-strip3" alt="">
-          <div class="img-slot-hint"><div class="img-slot-hint-icon">+</div><div class="img-slot-hint-label">Ảnh dự án</div></div>
         </div>
         <span class="fr-label">DOCUMENTARY</span>
       </div>
       <div class="fr">
         <div class="img-slot" id="slot-strip4">
-          <input type="file" accept="image/*" onchange="loadImg(this,'slot-strip4')">
           <img id="img-slot-strip4" alt="">
-          <div class="img-slot-hint"><div class="img-slot-hint-icon">+</div><div class="img-slot-hint-label">Ảnh dự án</div></div>
         </div>
         <span class="fr-label">CORPORATE</span>
       </div>
@@ -504,14 +472,9 @@
     <!-- ⑤ ABOUT PHOTO — ảnh chân dung hoặc hậu trường -->
     <div class="about-photo fu">
       <div class="img-slot" id="slot-about">
-        <input type="file" accept="image/*" onchange="loadImg(this,'slot-about')">
         <img id="img-slot-about" alt="">
         <div class="img-slot-overlay"></div>
         <div class="img-slot-tag">⑤ ABOUT</div>
-        <div class="img-slot-hint">
-          <div class="img-slot-hint-icon">+</div>
-          <div class="img-slot-hint-label">Chân dung<br>hoặc Hậu trường</div>
-        </div>
       </div>
     </div>
     <div class="about-left fu" style="transition-delay:.1s">
@@ -539,14 +502,9 @@
       <div class="sk fu">
         <div class="sk-img-slot">
           <div class="img-slot" id="slot-sk1">
-            <input type="file" accept="image/*" onchange="loadImg(this,'slot-sk1')">
             <img id="img-slot-sk1" alt="">
             <div class="img-slot-overlay"></div>
             <div class="img-slot-tag">⑦</div>
-            <div class="img-slot-hint">
-              <div class="img-slot-hint-icon">+</div>
-              <div class="img-slot-hint-label">Viết kịch bản</div>
-            </div>
           </div>
         </div>
         <div class="sk-n">01</div>
@@ -556,14 +514,9 @@
       <div class="sk fu" style="transition-delay:.08s">
         <div class="sk-img-slot">
           <div class="img-slot" id="slot-sk2">
-            <input type="file" accept="image/*" onchange="loadImg(this,'slot-sk2')">
             <img id="img-slot-sk2" alt="">
             <div class="img-slot-overlay"></div>
             <div class="img-slot-tag">⑧</div>
-            <div class="img-slot-hint">
-              <div class="img-slot-hint-icon">+</div>
-              <div class="img-slot-hint-label">Trên set</div>
-            </div>
           </div>
         </div>
         <div class="sk-n">02</div>
@@ -573,14 +526,9 @@
       <div class="sk fu" style="transition-delay:.16s">
         <div class="sk-img-slot">
           <div class="img-slot" id="slot-sk3">
-            <input type="file" accept="image/*" onchange="loadImg(this,'slot-sk3')">
             <img id="img-slot-sk3" alt="">
             <div class="img-slot-overlay"></div>
             <div class="img-slot-tag">⑨</div>
-            <div class="img-slot-hint">
-              <div class="img-slot-hint-icon">+</div>
-              <div class="img-slot-hint-label">Sản xuất / Quay</div>
-            </div>
           </div>
         </div>
         <div class="sk-n">03</div>
@@ -590,14 +538,9 @@
       <div class="sk fu" style="transition-delay:.24s">
         <div class="sk-img-slot">
           <div class="img-slot" id="slot-sk4">
-            <input type="file" accept="image/*" onchange="loadImg(this,'slot-sk4')">
             <img id="img-slot-sk4" alt="">
             <div class="img-slot-overlay"></div>
             <div class="img-slot-tag">⑩</div>
-            <div class="img-slot-hint">
-              <div class="img-slot-hint-icon">+</div>
-              <div class="img-slot-hint-label">Edit / Color</div>
-            </div>
           </div>
         </div>
         <div class="sk-n">04</div>
@@ -676,13 +619,8 @@
   <!-- ⑥ QUOTE BG — ảnh nền mờ phía sau quote -->
   <div class="quote-bg-slot">
     <div class="img-slot" id="slot-quote">
-      <input type="file" accept="image/*" onchange="loadImg(this,'slot-quote')">
       <img id="img-slot-quote" alt="">
       <div class="img-slot-tag">⑥ QUOTE BG</div>
-      <div class="img-slot-hint">
-        <div class="img-slot-hint-icon">+</div>
-        <div class="img-slot-hint-label">Ảnh nền mờ<br>phía sau quote</div>
-      </div>
     </div>
   </div>
   <div class="q-bg"></div>
@@ -747,23 +685,6 @@
   });
 
   // Image slot loader
-  function loadImg(input, slotId) {
-    const file = input.files[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    const slot = document.getElementById(slotId);
-    const img  = document.getElementById('img-' + slotId);
-    img.src = url;
-    img.classList.add('loaded');
-    slot.classList.add('has-img');
-    // Mirror strip duplicates
-    const mirrors = { 'slot-strip1': 'slot-strip1b', 'slot-strip2': 'slot-strip2b', 'slot-strip3': 'slot-strip3b', 'slot-strip4': 'slot-strip4b' };
-    if (mirrors[slotId]) {
-      const mImg = document.getElementById('img-' + mirrors[slotId]);
-      const mSlot = document.getElementById(mirrors[slotId]);
-      mImg.src = url; mImg.classList.add('loaded'); mSlot.classList.add('has-img');
-    }
-  }
 
   // Scroll reveal
   const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.1});
